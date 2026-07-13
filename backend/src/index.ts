@@ -9,6 +9,7 @@ import { clerkMiddleware } from "@clerk/express";
 
 import { clerkWebhookHandler } from "./webhooks/clerk";
 import { getEnv } from "./lib/env";
+import keerpAliveCorn from "./lib/corn";
 
 const env = getEnv();
 const app = express();
@@ -23,6 +24,11 @@ app.post("/webhooks/clerk", rawJson, (req, res) => {
 app.use(express.json()); // this middleware is used to parse or read the json data from the request body
 app.use(cors()); // this middleware is used to allow cross-origin requests from the frontend
 app.use(clerkMiddleware());
+
+app.get("/health", (_req, res) => { 
+  //_ is used to indicate that the parameter is not used in the function
+  res.json({ status: "ok" });
+} );
 
 const publicDir = path.join(process.cwd(), "public"); 
   //cwd is current working directory & 
@@ -54,4 +60,8 @@ if (fs.existsSync(publicDir)) { //existsSync means check if the public folder ex
 
 app.listen(env.PORT, () => {
   console.log(`Server is running on port ${env.PORT}`);
+
+  if(env.NODE_ENV === "production") {
+    keerpAliveCorn.start(); // start the cron job to keep the server alive in production
+  }
 });
