@@ -31,7 +31,7 @@ const publicDir = path.join(process.cwd(), "public");
 if (fs.existsSync(publicDir)) { //existsSync means check if the public folder exists or not
   app.use(express.static(publicDir)); // this middleware is used to serve the static files from the public folder
 
-  app.get("*", (req, res, next) => {
+  app.get("/{*any}", (req, res, next) => {
     if (req.method !== "GET" && req.method !== "HEAD") { 
       //req.method === "GET" is when the user is trying to access a page in the browser
       //req.method === "HEAD" is when the user is trying to get the headers of the response, not the body of the response
