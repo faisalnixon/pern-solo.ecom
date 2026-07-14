@@ -23,7 +23,7 @@ const envSchema = z.object({
   // POLAR_CHECKOUT_PRODUCT_ID: z.string().uuid(),
   // POLAR_CHECKOUT_PRODUCT_ID: z.uuid(),
   //fix this later to be uuid, for now just make it a string
-  POLAR_CHECKOUT_PRODUCT_ID: z.string(),
+  POLAR_CHECKOUT_PRODUCT_ID: z.uuid(),
 
   STREAM_API_KEY: z.string().min(1),
   STREAM_API_SECRET: z.string().min(1),
