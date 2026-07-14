@@ -14,15 +14,21 @@ import meRouter from "./routes/meRouter";
 import productsRouter from "./routes/productRouter";
 import streamRouter from "./routes/streamRouter";
 import checkoutRouter from "./routes/checkoutRouter";
+import { polarWebhookHandler } from "./webhooks/polar";
 
 const env = getEnv();
 const app = express();
 
 const rawJson = express.raw({ type: "application/json", limit: "1mb" });
 // it's important that you don't parse the webhook event data, it should be in the raw format
+app.post("/webhooks/polar", rawJson, (req, res) => {
+  void polarWebhookHandler(req, res);
+});
 app.post("/webhooks/clerk", rawJson, (req, res) => {
   void clerkWebhookHandler(req, res);
 });
+
+
 // we place the clerk web hook handler before app.use(express.json()) is because the clerk web hook handler needs to read the raw json data from the request body, and if we place it after app.use(express.json()), the request body will be parsed and the raw json data will be lost.
 
 app.use(express.json()); // this middleware is used to parse or read the json data from the request body
