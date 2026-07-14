@@ -10,6 +10,9 @@ import { clerkMiddleware } from "@clerk/express";
 import { clerkWebhookHandler } from "./webhooks/clerk";
 import { getEnv } from "./lib/env";
 import keerpAliveCorn from "./lib/corn";
+import meRouter from "./routes/meRouter";
+import productsRouter from "./routes/productRouter";
+import streamRouter from "./routes/streamRouter";
 
 const env = getEnv();
 const app = express();
@@ -29,6 +32,10 @@ app.get("/health", (_req, res) => {
   //_ is used to indicate that the parameter is not used in the function
   res.json({ status: "ok" });
 } );
+
+app.use("/api/me", meRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/stream", streamRouter);
 
 const publicDir = path.join(process.cwd(), "public"); 
   //cwd is current working directory & 
