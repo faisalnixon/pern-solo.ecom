@@ -16,6 +16,8 @@ import meRouter from "./routes/meRouter";
 import productsRouter from "./routes/productRouter";
 import streamRouter from "./routes/streamRouter";
 import checkoutRouter from "./routes/checkoutRouter";
+import adminRouter from "./routes/adminRouter";
+
 import { polarWebhookHandler } from "./webhooks/polar";
 import { sentryClerkUserMiddleware } from "./middleware/sentryClerkUser";
 
@@ -48,6 +50,7 @@ app.use("/api/me", meRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/stream", streamRouter);
 app.use("/api/checkout", checkoutRouter);
+app.use("/api/admin", adminRouter);
 
 const publicDir = path.join(process.cwd(), "public");
 //cwd is current working directory &
