@@ -5,6 +5,8 @@ import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 
+import * as sentry from "@sentry/node";
+
 import { clerkMiddleware } from "@clerk/express";
 
 import { clerkWebhookHandler } from "./webhooks/clerk";
@@ -15,6 +17,7 @@ import productsRouter from "./routes/productRouter";
 import streamRouter from "./routes/streamRouter";
 import checkoutRouter from "./routes/checkoutRouter";
 import { polarWebhookHandler } from "./webhooks/polar";
+import { sentryClerkUserMiddleware } from "./middleware/sentryClerkUser";
 
 const env = getEnv();
 const app = express();
@@ -34,6 +37,7 @@ app.post("/webhooks/clerk", rawJson, (req, res) => {
 app.use(express.json()); // this middleware is used to parse or read the json data from the request body
 app.use(cors()); // this middleware is used to allow cross-origin requests from the frontend
 app.use(clerkMiddleware());
+app.use(sentryClerkUserMiddleware);
 
 app.get("/health", (_req, res) => {
   //_ is used to indicate that the parameter is not used in the function
@@ -74,6 +78,20 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
+// sentry will be attached to the response object
+sentry.setupExpressErrorHandler(app); // this middleware is used to handle the errors that are thrown in the application and send them to Sentry
+
+
+app.use(
+  (_err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const sentryId = (res as express.Response & { sentry?: string }).sentry;
+
+    res.status(500).json({
+      error: "Internal server error",
+      ...(sentryId !== undefined && { sentryId }),
+    });
+  },
+);
 app.listen(env.PORT, () => {
   console.log(`Server is running on port ${env.PORT}`);
 
