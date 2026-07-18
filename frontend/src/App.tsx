@@ -3,6 +3,8 @@ import {
 } from "@clerk/react";
 import PageLoader from "./components/PageLoader";
 import Layout from "./components/Layout";
+import { Route, Routes } from "react-router";
+import HomePage from "./pages/HomePage";
 
 function App() {
   const { isLoaded } = useAuth();
@@ -11,12 +13,9 @@ function App() {
   return (
     <Layout>
      
-      <p className="text-4xl font-extrabold bg-blue-700 text-amber-600">
-        Welcome to the App!{" "}
-      </p>
-      <button className="btn  bg-amber-600 rounded-2xl">Click me</button>
-      <button className="btn btn-success">Click me</button>
-      <button className="btn btn-secondary">Click me</button>
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+      </Routes>
     </Layout>
   );
 }

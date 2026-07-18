@@ -59,7 +59,7 @@ const Navbar = () => {
             <span className="flex size-10 items-center justify-center rounded-lg bg-primary/15 p-1 text-primary">
               <StoreIcon className="size-8 text-lime-500" aria-hidden />
             </span>
-            <span className="leading-none">Northwind</span>
+            <span className="leading-none">pern-solo.ecom</span>
           </Link>
         </div>
 
