@@ -1,4 +1,5 @@
-import type { UserRole } from "../../../backend/src/db/schema"; // or define separately
+export type UserRole = "customer" | "support" | "admin";
+
 export interface Product {
   id: string;
   slug: string;
