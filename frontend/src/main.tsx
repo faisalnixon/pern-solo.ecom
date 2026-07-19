@@ -20,7 +20,7 @@ const tracePropagationTargets =
       : [];
 
 Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DSN,
+  dsn: import.meta.env.VITE_SENTRY_DNS,
   environment: import.meta.env.MODE, // vite will set this to "development" or "production" automatically
   sendDefaultPii: true, //sendDefaultPii means that Sentry will send the user's IP address and other identifying information along with the error report. This can be useful for debugging, but it may also raise privacy concerns, so use it with caution. Pii = personally identifiable information (PII)
   integrations: [

@@ -2,7 +2,7 @@ import "dotenv/config";
 import * as Sentry from "@sentry/node";
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
 
-const dsn = process.env.SENTRY_DSN;
+const dsn = process.env.SENTRY_DNS;
 
 // node profiling integration is for performance debugging in Sentry.
 if (dsn) {
