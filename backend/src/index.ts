@@ -1,3 +1,4 @@
+import * as sentry from "@sentry/node";
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
@@ -5,7 +6,6 @@ import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 
-import * as sentry from "@sentry/node";
 
 import { clerkMiddleware } from "@clerk/express";
 

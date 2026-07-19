@@ -94,7 +94,7 @@ const Navbar = () => {
             aria-label={cartCount > 0 ? `Cart, ${cartCount} items` : "Cart"}
           >
             {cartCount > 0 ? (
-              <span className="indicator-item badge badge-sm badge-primary min-w-2 px-1.5 font-sans text-xs tabular-nums bg-lime-800">
+              <span className="indicator-item badge badge-sm badge-primary min-w-2 px-1.5 font-sans text-xs tabular-nums bg-lime-800 text-white">
                 {cartCount > 99 ? "99+" : cartCount}
               </span>
             ) : null}
