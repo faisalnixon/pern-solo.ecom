@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
+import CheckoutReturnPage from "./pages/CheckoutReturnPage";
 
 function App() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -19,6 +20,8 @@ function App() {
           element={isSignedIn ? <OrdersPage /> : <Navigate to={"/"} replace />}
         />
         {/* replace prevents adding this redirect to the browser history, so the user can't go back to the protected page using the Back button. */}
+
+        <Route path="/checkout/return" element={<CheckoutReturnPage />} />
       </Routes>
     </Layout>
   );
