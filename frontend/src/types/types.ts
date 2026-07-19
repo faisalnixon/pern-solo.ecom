@@ -13,7 +13,9 @@ export interface Product {
   active: boolean;
   createdAt: string;
 }
-
+export interface ProductResponse {
+  product: Product;
+}
 
 export interface MeResponse {
   user: {
