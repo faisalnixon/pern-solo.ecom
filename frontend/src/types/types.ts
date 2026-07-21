@@ -1,4 +1,5 @@
 export type UserRole = "customer" | "support" | "admin";
+export type OrderStatus = "pending" | "paid" | "failed";
 
 export interface Product {
   id: string;
@@ -17,15 +18,20 @@ export interface ProductResponse {
   product: Product;
 }
 
+
+
 export interface MeResponse {
   user: {
     id: string;
     clerkUserId: string;
     email: string;
     displayName: string | null;
+
     role: UserRole;
   };
 }
+
+
 
 export interface OrderPreviewItem {
   slug: string;
@@ -33,16 +39,51 @@ export interface OrderPreviewItem {
   quantity: number;
 }
 
-export interface Order {
+
+export interface OrderSummary {
   id: string;
-  status: "pending" | "paid" | "failed";
+  status: OrderStatus;
   totalCents: number;
   createdAt: string;
   updatedAt: string;
-
+  
   previewItems: OrderPreviewItem[];
 }
 
-export interface OrdersResponse {
-  orders: Order[];
+
+
+export interface Order {
+  id: string;
+  status: OrderStatus;
+  totalCents: number;
+  createdAt: string;
+  updatedAt: string;
+  
+  previewItems: OrderPreviewItem[];
 }
+
+export interface OrderDetail {
+  id: string;
+  status: OrderStatus;
+  totalCents: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OrderItem {
+  id: string;
+  quantity: number;
+  unitPriceCents: number;
+
+  product: Product;
+}
+
+export interface OrdersResponse {
+    orders: OrderSummary[];
+}
+
+export interface OrderDetailResponse {
+    order: OrderDetail;
+    items: OrderItem[];
+}
+

@@ -7,6 +7,10 @@ import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import CheckoutReturnPage from "./pages/CheckoutReturnPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import { SentryDemoPage } from "./pages/SentryDemoPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
+import OrderSummaryPage from "./pages/OrderSummaryPage";
+import OrderChatPage from "./pages/OrderChatPage";
 
 function App() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -25,9 +29,20 @@ function App() {
         {/* replace prevents adding this redirect to the browser history, so the user can't go back to the protected page using the Back button. */}
 
         <Route path="/checkout/return" element={<CheckoutReturnPage />} />
+
+        <Route path="/demo-sentry" element={<SentryDemoPage />} />
+
+
+        {/* NESTED ROUTES */}
+        <Route path="/orders/:id" element={<OrderDetailPage />}>
+          <Route index element={<OrderSummaryPage />} />
+          <Route path="chat" element={<OrderChatPage />} />
+        </Route>
+
       </Routes>
     </Layout>
   );
 }
 
 export default App;
+
